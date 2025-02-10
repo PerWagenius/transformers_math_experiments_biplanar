@@ -12,9 +12,9 @@ using Dates
 # Choose the problem to work on here!
 
 #include("problem_triangle_free.jl")  
-include("problem_4_cycle_free.jl")
-#include("problem_permanent_avoid_123.jl")
-
+#include("problem_4_cycle_free.jl")
+#include("problem_permanent_avoid_123.jl") #working example
+include("problem_biplanar.jl")
 
 #########################################################################################
 
@@ -255,7 +255,7 @@ function add_db!(db, list_obj, list_rew = nothing)
                 rew = list_rew[i]         
                 push!(rewards_new_objects, rew)
                 #db.objects[obj] = rew
-                set!(db.objects, obj, rew)
+                Dictionaries.set!(db.objects, obj, rew) #since PyCall also has a fn set
                 if !haskey(db.rewards, rew)
                     insert!(db.rewards,rew,[obj])
                     insert!(db.local_search_indices, rew, 0)
@@ -284,7 +284,7 @@ function add_db!(db, list_obj, list_rew = nothing)
             obj = list_obj[i]          
             rew = list_rew[i] 
             push!(rewards_new_objects, list_rew[i])
-            set!(db.objects, obj,rew)
+            Dictionaries.set!(db.objects, obj,rew)
             if !haskey(db.rewards, rew)
                 insert!(db.rewards,rew,[obj])
                 insert!(db.local_search_indices, rew, 0)
@@ -320,7 +320,7 @@ function shrink!(db)
             end
         else
             for obj in db.rewards[rew]
-                unset!(db.objects, obj)
+                Dictionaries.unset!(db.objects, obj)
             end
             delete!(db.rewards, rew)
             delete!(db.local_search_indices, rew)

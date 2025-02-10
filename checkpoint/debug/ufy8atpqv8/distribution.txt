@@ -1,0 +1,4 @@
+Score: 8.0, Count: 1464
+Score: 7.0, Count: 23882
+Score: 6.0, Count: 45196
+Score: 5.0, Count: 412
